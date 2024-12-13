@@ -11,7 +11,7 @@ Script Configuration: Replace YOUR_TELEGRAM_BOT_API_TOKEN and YOUR_CHAT_ID in th
 
 Target Date: Enter the date before which you want to find an available appointment in the target_date variable.
 
-Running the Script After configuring the bot, you can run the script with: python visaviatelegram.py
+Running the Script After configuring the bot, you can run the script with: python usv.py
 
 Notes Security: The bot waits for a random time between 10 to 15 minutes between each check to avoid being blocked by the website. Error Handling: If the bot encounters an error, it will log the error and close the browser after each check.
 
