@@ -35,12 +35,12 @@ def send_telegram_notification(message):
 service = Service("YOUR_CHROMEDRIVER_PATH") 
 
 # Brave Browser setup
-brave_path = "YOUR_BRAVE_BROWSER_PATH"  # Type the Brave browser path here or whatever browser you are using 
+brave_path = "YOUR_BRAVE_BROWSER_PATH"  # Type the Brave browser path here 
 options = Options()
 options.binary_location = brave_path
 options.add_argument("--disable-blink-features=AutomationControlled")
 
-# API URL for fetching available dates
+
 url = "YOUR_API_URL"  # Insert the appointment control URL here
 
 # Target Date: blablabla
@@ -53,11 +53,11 @@ def get_csrf_token_and_cookies(driver):
     cookies_dict = {cookie['name']: cookie['value'] for cookie in cookies}
     return csrf_token, cookies_dict
 
-# Function to check appointments
+
 def check_appointments():
     driver = None
     try:
-        # Initialize the WebDriver
+      
         driver = webdriver.Chrome(service=service, options=options)
 
         # Target URL
@@ -73,7 +73,7 @@ def check_appointments():
         terms_checkbox = driver.find_element(By.ID, "policy_confirmed")  # Tick the checkbox
         login_button = driver.find_element(By.NAME, "commit")
 
-        # Enter login credentials
+       
         print("Entering credentials...")
         email_field.send_keys("YOUR_EMAIL")  # US Embassy account details
         password_field.send_keys("YOUR_PASSWORD")  # US Embassy password
@@ -92,7 +92,7 @@ def check_appointments():
         driver.get("https://ais.usvisa-info.com/{EmbassyLocationCode}r/niv/schedule/{SCHEDULE_ID}/appointment")  # Schedule ID and Embassy location code inside the URL
         print("Appointment page loaded. Checking appointments...")
 
-        # Click on the facility dropdown and select the desired option (Istanbul)
+        # Click on the facility dropdown and select the desired option (City)
         driver.execute_script("document.querySelector('#appointments_consulate_appointment_facility_id > option:nth-child(3)').click();")
         print("Embassy selected.")
 
@@ -107,13 +107,13 @@ def check_appointments():
         driver.execute_script("arguments[0].scrollIntoView(true);", date_field)
         driver.execute_script("arguments[0].click();", date_field)
 
-        # Get CSRF token and cookies from the browser session
+       
         csrf_token, cookies_dict = get_csrf_token_and_cookies(driver)
 
-        headers = {                                                             # For this section you need to take your own API headers you can easily take it from Network section on when you login your account.
+        headers = {                                  # For this section you need to take your own API headers you can easily take it from Network section on when you login your account.
             "Accept": "application/json, text/javascript, */*; q=0.01",
             "Accept-Encoding": "gzip, deflate, br, zstd",
-            "Accept-Language": "{EmbassyLocationCode},{EmbassyLocationCode};q=0.7",                            # Like en-CA  ,  #en                       
+            "Accept-Language": "{EmbassyLocationCode},{EmbassyLocationCode};q=0.7",         # Like en-CA  ,  #en                       
             "Connection": "keep-alive",
             "Referer": "https://ais.usvisa-info.com/{EmbassyLocationCode}/niv/schedule/{SCHEDULE_ID}/appointment", # Schedule ID and Embassy location code inside the URL
             "Sec-Fetch-Dest": "empty",
@@ -160,7 +160,7 @@ def check_appointments():
             print("Closing the browser...")
             driver.quit()
 
-# Run the appointment check function with random intervals
+
 while True:
     check_appointments()
 
